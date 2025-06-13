@@ -68,18 +68,17 @@ formulario.addEventListener("submit", async function (evento) {
   const dados = Object.fromEntries(formData.entries());
 
   try {
-    const resposta = await fetch('/enviar', {
-
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(dados)
-    });
+    const resposta = await fetch('https://formulario-cep-nodemailer-1.onrender.com/enviar', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(dados)
+});
 
     const mensagemDiv = document.getElementById('mensagem');
 
     if (resposta.ok) {
       mensagemDiv.textContent = 'Email enviado com sucesso!';
-      mensagemDiv.style.color = 'green';
+      mensagemDiv.style.color = 'white';
       formulario.reset();
     } else {
       mensagemDiv.textContent = 'Erro ao enviar o email.';
