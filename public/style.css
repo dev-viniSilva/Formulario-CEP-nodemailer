@@ -24,7 +24,7 @@ body {
 
 .div-2inputs {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 inputs por linha */
+    grid-template-columns: 1fr 1fr;
     gap: 30px;
     margin-bottom: 1.5em;
 }
@@ -35,7 +35,7 @@ body {
     font-size: 1.2em;
     display: block;
     text-align: left;
-    color: #557497;
+    color: white;
 }
 
 .div-input {
@@ -49,6 +49,7 @@ input {
     border: 2px solid black;
     border-radius: 3px;
     background-color: transparent;
+    font-size: 16px;
     color: #9cc934;
     width: 100%;
     box-sizing: border-box;
@@ -72,7 +73,7 @@ span {
     margin-top: 2em;
     color: white;
     font-family: monospace;
-    font-weight: 900;
+    font-weight: 900; 
     cursor: pointer;
 }
 
