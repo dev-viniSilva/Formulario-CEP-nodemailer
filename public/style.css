@@ -24,7 +24,7 @@ body {
 
 .div-2inputs {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* 2 inputs por linha */
+    grid-template-columns: 1fr 1fr;
     gap: 30px;
     margin-bottom: 1.5em;
 }
