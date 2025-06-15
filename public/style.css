@@ -82,9 +82,6 @@ span {
     font-weight: 900;
 }
 
-
-
-/* 🔧 MEDIA SCREEN ajustado mantendo 2 por linha */
 @media screen and (max-width: 768px) {
     body {
         width: 100%;
@@ -99,7 +96,7 @@ span {
     }
 
     .div-2inputs {
-        grid-template-columns: 1fr 1fr; /* mantém 2 por linha */
+        grid-template-columns: 1fr 1fr; 
         gap: 40px;
     }
 
