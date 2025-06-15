@@ -35,7 +35,7 @@ body {
     font-size: 1.2em;
     display: block;
     text-align: left;
-    color: #557497;
+    color: white;
 }
 
 .div-input {
@@ -84,7 +84,7 @@ span {
 
 
 
-/* 🔧 MEDIA SCREEN ajustado mantendo 2 por linha */
+
 @media screen and (max-width: 768px) {
     body {
         width: 100%;
@@ -99,7 +99,7 @@ span {
     }
 
     .div-2inputs {
-        grid-template-columns: 1fr 1fr; /* mantém 2 por linha */
+        grid-template-columns: 1fr 1fr; 
         gap: 40px;
     }
 
