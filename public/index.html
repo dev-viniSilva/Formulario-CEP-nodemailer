@@ -3,74 +3,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Formulario</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet"/>
+  <title>Formulário</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+
+ 
   <div class="container">
-    <h2 class="h2-title">Formulario de contato</h2>
-   
+   <h2 class="title">Formulario De contato</h2>
+    <form id="formulario">
 
-    <hr class="hr-main"/>
-    
+      <div class="div-2inputs">
+      <div class="div-input">
+        <label class="label-input" for="nome">Nome</label>
+        <input id="nome" name="nome" type="text" pattern="[A-Za-zÀ-ÿ\s]+" required />
+        <span id="erroNome" class="span-input"></span>
+      </div>
 
-    <div class="row">
-      <form class="col s12" id="formulario">
-        <div class="row">
-          <div class="input-field col s6 ">
-            <input  id="nome" name="nome" type="text" pattern="[A-Za-zÀ-ÿ\s]+" required/>
-            <label for="nome">Nome</label>
-            <span id="erroNome" class="helper-text red-text"></span>
-          </div>
-          <div class="input-field col s6">
-            <input id="sobrenome" name="sobrenome" type="text" pattern="[A-Za-zÀ-ÿ\s]+" required />
-            <label for="sobrenome">Sobrenome</label>
-          </div>
-        </div>
-
-        <div class="input-field col s12 ">
-          <input id="idade" name="idade" type="number" required />
-          <label for="idade">Idade</label>
-          <span id="erroIdade" class="helper-text red-text"></span>
-        </div>
-
-        <div class="input-field col s12">
-          <input id="cep" name="cep" type="text" required />
-          <label for="cep">CEP</label>
-          <span id="invalidCEP" class="helper-text red-text"></span>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="rua" name="rua" type="text" required />
-            <label for="rua">Rua</label>
-          </div>
-          <div class="input-field col s12">
-            <input  id="bairro" name="bairro" type="text" required />
-            <label for="bairro">Bairro</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s12">
-            <input id="cidade" name="cidade" type="text" required />
-            <label for="cidade">Cidade</label>
-          </div>
-          <div class="input-field col s12">
-            <input id="estado" name="estado" type="text" required />
-            <label for="estado">Estado</label>
-          </div>
-        </div>
-
-        <p id="mensagem"></p>
-
-        <button type="submit" class="btn waves-effect waves-light">Enviar</button>
-      </form>
+      <div class="div-input">
+        <label  class="label-input" for="sobrenome">Sobrenome</label>
+        <input id="sobrenome" name="sobrenome" type="text" pattern="[A-Za-zÀ-ÿ\s]+" required />
+         <span id="erroSobrenome" class="span-input"></span>
+      </div>
     </div>
-  </div>
+    <div class="div-2inputs">
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" ></script>
+
+
+      <div class="div-input">
+        <label class="label-input" for="idade">Idade</label>
+        <input id="idade" name="idade" type="number" required />
+        <span id="erroIdade" class="span-input"></span>
+      </div>
+
+      <div class="div-input">
+        <label class="label-input" for="cep">CEP</label>
+        <input  id="cep" name="cep" type="text" required />
+        <span id="invalidCEP" class="span-input"></span>
+      </div>
+    </div>
+
+    <div class="div-2inputs">
+      <div class="div-input">
+        <label  class="label-input" for="rua">Rua</label>
+        <input id="rua" name="rua" type="text" required />
+      </div>
+
+      
+
+      <div class="div-input">
+        <label class="label-input" for="bairro">Bairro</label>
+        <input id="bairro" name="bairro" type="text" required />
+      </div>
+    </div>
+
+     <div class="div-2inputs">
+      <div class="div-input">
+        <label class="label-input" for="cidade">Cidade</label>
+        <input id="cidade" name="cidade" type="text" required />
+      </div>
+
+      <div class="div-input">
+        <label class="label-input" for="estado">Estado</label>
+        <input id="estado" name="estado" type="text" required />
+      </div>
+    </div>
+
+ 
+
+     
+
+      <button type="submit" class="btn">Enviar</button> 
+      <p id="mensagem"></p>
+    </form>
+  </div>
+ 
+
   <script src="index.js" defer></script>
 </body>
 </html>

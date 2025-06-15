@@ -11,25 +11,12 @@ const textDeInvalidation = document.getElementById("invalidCEP");
 const erroIdade = document.getElementById("erroIdade");
 const erroNome = document.getElementById("erroNome");
 
-
 let enderecoValido = false;
 
 function validarIdade() {
-  return parseInt(idade.value) >= 18;
+  const idadeNumero = parseInt(idade.value);
+  return !isNaN(idadeNumero) && idadeNumero >= 18;
 }
-
-idade.addEventListener("blur" , () => {
-  if (!validarIdade()) {
-    erroIdade.innerHTML = 'Você não pode se cadastrar, pois é menor de 18 anos';
-    idade.value = ''
-    return;
-  }  else {
-
-    erroIdade.innerHTML = ''
-  }
-
-
-})
 
 cep.addEventListener("blur", async () => {
   const cepValido = await verificarCep();
@@ -47,79 +34,75 @@ formulario.addEventListener("submit", async function (evento) {
 
   const idadeValida = validarIdade();
   const cepValido = await verificarCep();
-  
 
   if (!cepValido) {
+    textDeInvalidation.innerHTML = "CEP invalido ou nao encontrado.";
     cep.focus();
     return;
+  } else {
+    textDeInvalidation.innerHTML = "";
   }
 
   if (!idadeValida) {
-    erroIdade.innerHTML = 'Você não pode se cadastrar, pois é menor de 18 anos';
+    erroIdade.innerHTML = 'Voce nao pode se cadastrar, pois e menor de 18 anos.';
+    idade.value = '';
     idade.focus();
     return;
   } else {
     erroIdade.innerHTML = '';
   }
 
- 
-
+  
   const formData = new FormData(formulario);
   const dados = Object.fromEntries(formData.entries());
 
   try {
     const resposta = await fetch('https://formulario-cep-nodemailer-1.onrender.com/enviar', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(dados)
-});
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados)
+    });
 
     const mensagemDiv = document.getElementById('mensagem');
 
     if (resposta.ok) {
       mensagemDiv.textContent = 'Email enviado com sucesso!';
       mensagemDiv.style.color = 'white';
-      formulario.reset();
+      formulario.reset();  
     } else {
       mensagemDiv.textContent = 'Erro ao enviar o email.';
       mensagemDiv.style.color = 'red';
+      
     }
   } catch (erro) {
-    console.error('Erro na requisição:', erro);
-    document.getElementById('mensagem').textContent = 'Erro na conexão com o servidor.';
+    console.error('Erro na requisicao:', erro);
+    document.getElementById('mensagem').textContent = 'Erro na conexao com o servidor.';
   }
 });
+
+
+
 
 async function verificarCep() {
   const cepNumeros = cep.value.replace(/\D/g, '');
 
-  if (cepNumeros.length !== 8) {
-    textDeInvalidation.innerHTML = "CEP inválido";
-    return false;
-  }
+  if (cepNumeros.length !== 8) return false;
 
   try {
     const response = await fetch(`https://viacep.com.br/ws/${cepNumeros}/json/`);
     const data = await response.json();
 
-    if (data.erro) {
-      textDeInvalidation.innerHTML = "CEP não encontrado.";
-      return false;
-    }
+    if (data.erro) return false;
 
-    textDeInvalidation.innerHTML = "";
+    
     rua.value = data.logradouro || "";
     bairro.value = data.bairro || "";
     cidade.value = data.localidade || "";
     estado.value = data.uf || "";
 
-    
-     M.updateTextFields();
-
     return true;
 
   } catch (error) {
-    textDeInvalidation.innerHTML = "Erro ao buscar o CEP.";
     return false;
   }
 }

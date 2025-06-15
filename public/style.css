@@ -1,66 +1,117 @@
 body {
-    background: #323cc5;
-   text-align: center;
-   align-items: center;
-  margin: 5em;
-  
+    background: #263849;
+    width: 50%;
+    margin: auto;
 }
 
-
-.h2-title {
-font-size: 2.5em;
-font-family: serif;
-color:whitesmoke;
-}
-.row {
-    text-align: center
-}
-
-.bt-submit {
-    background-color: transparent;
-    border: transparent;
-}
-
-
-.btn {
-    background-color: black;
-    border: 1px solid white ;
-    border-radius: 3px;
-
-}
-
-.h2-title {
-    color: #292a2b;
+.title {
+    color: white;
+    font-size: 3em;
     font-family: monospace;
     font-weight: 900;
-    
+    text-align: center;
 }
-
-.p-title {
-    font-size: 2em;
-    font-family: monospace;
-    font-weight: 900
-}
-
-.hr-main {
-    border: 2px solid black;
-    border-radius: 1200px 10px;
-    width: 100%;
-    
-}
-
-
-
-
 
 .container {
-    max-width: 1200px;
+    margin-top: 5em;
+    height: auto;
+    width: 50vw;
+    padding: 2em;
+    text-align: center;
+    border: 3px solid #9cc934;
+    border-radius: 22px;
+}
+
+.div-2inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 inputs por linha */
+    gap: 30px;
+    margin-bottom: 1.5em;
+}
+
+.label-input {
+    font-weight: 900;
+    font-family: monospace;
+    font-size: 1.2em;
+    display: block;
+    text-align: left;
+    color: #557497;
+}
+
+.div-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+input {
+    padding: 0.6em 1.2em;
+    border: 2px solid black;
+    border-radius: 3px;
+    background-color: transparent;
+    color: #9cc934;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+span {
+    display: block;
+    font-family: monospace;
+    font-weight: 900;
+    font-size: 14px;
+    max-width: 20em;
+    text-align: center;
+    color: rgb(204, 18, 18);
+}
+
+.btn {
+    background-color: transparent;
+    border: 2px solid #9cc934;
+    border-radius: 3px;
+    padding: 0.8em 2.5em;
+    margin-top: 2em;
+    color: white;
+    font-family: monospace;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.btn:active {
+    background-color: #9cc934;
+    border: 1px solid white;
+    font-weight: 900;
 }
 
 
-@media screen and (max-width: 600px ) {
-    
-   body {
-    max-width: 800px;
-   }
+
+/* 🔧 MEDIA SCREEN ajustado mantendo 2 por linha */
+@media screen and (max-width: 768px) {
+    body {
+        width: 100%;
+        margin: 0;
+        padding: 1em;
+    }
+
+    .container {
+       
+        width: 80%;
+        padding: 1.5em;
+    }
+
+    .div-2inputs {
+        grid-template-columns: 1fr 1fr; /* mantém 2 por linha */
+        gap: 40px;
+    }
+
+    .div-input {
+        gap: 20px;
+    }
+
+    .title {
+        font-size: 2em;
+    }
+
+    .btn {
+        width: 40%;
+    }
 }
