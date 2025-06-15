@@ -1,7 +1,8 @@
 body {
     background: #263849;
-    width: 50%;
-    margin: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    padding-left: 23%;
 }
 
 .title {
@@ -56,6 +57,23 @@ textarea {
     width: 100%;
     box-sizing: border-box;
  
+}
+
+input,
+select,
+textarea,
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="tel"] {
+  font-size: 16px !important;
+  padding: 0.6em 1.2em;
+    border: 2px solid black;
+    border-radius: 3px;
+    background-color: transparent;
+    color: #9cc934;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 span {
