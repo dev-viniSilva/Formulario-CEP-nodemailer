@@ -10,18 +10,49 @@ const estado = document.getElementById("estado");
 const textDeInvalidation = document.getElementById("invalidCEP");
 const erroIdade = document.getElementById("erroIdade");
 const erroNome = document.getElementById("erroNome");
+const erroSobrenome = document.getElementById("erroSobrenome");
+const mensagemEmail = document.getElementById("mensagem-email");
 
 let enderecoValido = false;
+let formEnviado = false; // controla se já tentou enviar (para mostrar erros no blur só depois disso)
+
 
 function validarIdade() {
   const idadeNumero = parseInt(idade.value);
   return !isNaN(idadeNumero) && idadeNumero >= 18;
 }
 
+
+function validarNome(valor) {
+  const regex = /^[A-Za-zÀ-ÿ]+$/;
+  return regex.test(valor);
+}
+
+function showToast(mensagem, duracao = 3000) {
+  const toast = document.getElementById("toast");
+  toast.textContent = mensagem;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, duracao);
+}
+
+
+
 cep.addEventListener("blur", async () => {
   const cepValido = await verificarCep();
   enderecoValido = cepValido;
+
+   if (cepValido) {
+    textDeInvalidation.innerHTML = '';
+    cep.style.borderColor = '';
+  } else if (formEnviado) {
+    textDeInvalidation.innerHTML = "CEP inválido ou não encontrado.";
+    cep.style.borderColor = 'red';
+  }
 });
+
 
 [rua, bairro, cidade, estado].forEach(campo => {
   campo.addEventListener("input", () => {
@@ -29,59 +60,115 @@ cep.addEventListener("blur", async () => {
   });
 });
 
+
+nome.addEventListener("blur", () => {
+  if (!formEnviado) return; 
+
+  if (!validarNome(nome.value)) {
+    erroNome.innerHTML = "Nome inválido, tente novamente.";
+    nome.style.borderColor = "red";
+  } else {
+    erroNome.innerHTML = '';
+    nome.style.borderColor = '';
+  }
+});
+
+sobrenome.addEventListener("blur", () => {
+  if (!formEnviado) return; 
+
+  if (!validarNome(sobrenome.value)) {
+    erroSobrenome.innerHTML = "Sobrenome inválido, tente novamente.";
+    sobrenome.style.borderColor = "red";
+  } else {
+    erroSobrenome.innerHTML = '';
+    sobrenome.style.borderColor = '';
+  }
+});
+
+idade.addEventListener("blur", () => {
+  if (!formEnviado) return; 
+
+  if (!validarIdade()) {
+    erroIdade.innerHTML = 'Você não pode se cadastrar, pois é menor de 18 anos.';
+    idade.style.borderColor = "red";
+  } else {
+    erroIdade.innerHTML = '';
+    idade.style.borderColor = '';
+  }
+});
+
 formulario.addEventListener("submit", async function (evento) {
   evento.preventDefault();
 
-  const idadeValida = validarIdade();
-  const cepValido = await verificarCep();
+  formEnviado = true; 
+  let formularioValido = true;
 
+  const idadeValida = validarIdade();
+  if (!idadeValida) {
+    erroIdade.innerHTML = 'Você não pode se cadastrar, pois é menor de 18 anos.';
+    idade.style.borderColor = "red";
+    idade.focus();
+    formularioValido = false;
+  } else {
+    erroIdade.innerHTML = '';
+    idade.style.borderColor = '';
+  }
+
+  const cepValido = await verificarCep();
   if (!cepValido) {
-    textDeInvalidation.innerHTML = "CEP invalido ou nao encontrado.";
+    textDeInvalidation.innerHTML = "CEP inválido ou não encontrado.";
     cep.focus();
-    return;
+    formularioValido = false;
   } else {
     textDeInvalidation.innerHTML = "";
   }
 
-  if (!idadeValida) {
-    erroIdade.innerHTML = 'Voce nao pode se cadastrar, pois e menor de 18 anos.';
-    idade.value = '';
-    idade.focus();
-    return;
+  if (!validarNome(nome.value)) {
+    erroNome.innerHTML = "Nome inválido, tente novamente.";
+    nome.style.borderColor = "red";
+    nome.focus();
+    formularioValido = false;
   } else {
-    erroIdade.innerHTML = '';
+    erroNome.innerHTML = '';
+    nome.style.borderColor = '';
   }
 
-  
+  if (!validarNome(sobrenome.value)) {
+    erroSobrenome.innerHTML = "Sobrenome inválido, tente novamente.";
+    sobrenome.style.borderColor = "red";
+    sobrenome.focus();
+    formularioValido = false;
+  } else {
+    erroSobrenome.innerHTML = '';
+    sobrenome.style.borderColor = '';
+  }
+
+  if (!formularioValido) return; 
+
   const formData = new FormData(formulario);
   const dados = Object.fromEntries(formData.entries());
 
   try {
-    const resposta = await fetch('https://formulario-cep-nodemailer-1.onrender.com/enviar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(dados)
-    });
+  showToast("Email em andamento");
+  const resposta = await fetch('https://formulario-cep-nodemailer-1.onrender.com/enviar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(dados)
+  });
 
-    const mensagemDiv = document.getElementById('mensagem');
-
-    if (resposta.ok) {
-      mensagemDiv.textContent = 'Email enviado com sucesso!';
-      mensagemDiv.style.color = 'white';
-      formulario.reset();  
-    } else {
-      mensagemDiv.textContent = 'Erro ao enviar o email.';
-      mensagemDiv.style.color = 'red';
-      
-    }
-  } catch (erro) {
-    console.error('Erro na requisicao:', erro);
-    document.getElementById('mensagem').textContent = 'Erro na conexao com o servidor.';
+  if (resposta.ok) {
+    formulario.reset();
+    window.location.href = "check.html";
+    formEnviado = false;
+  } else {
+    showToast("Erro ao enviar o email.", 10000);
   }
+} catch (erro) {
+  console.error('Erro na requisição:', erro);
+  showToast("Erro na conexão com o servidor.", 10000);
+}
+
 });
-
-
-
 
 async function verificarCep() {
   const cepNumeros = cep.value.replace(/\D/g, '');
@@ -94,14 +181,12 @@ async function verificarCep() {
 
     if (data.erro) return false;
 
-    
     rua.value = data.logradouro || "";
     bairro.value = data.bairro || "";
     cidade.value = data.localidade || "";
     estado.value = data.uf || "";
 
     return true;
-
   } catch (error) {
     return false;
   }

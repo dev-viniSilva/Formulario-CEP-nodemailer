@@ -1,8 +1,9 @@
 body {
     background: #263849;
+    height: 100vh;
     max-width: 100%;
-    margin: 0 auto;
-    padding-left: 23%;
+  justify-items: center;
+  margin-top: 6em;
 }
 
 .title {
@@ -14,7 +15,6 @@ body {
 }
 
 .container {
-    margin-top: 5em;
     height: auto;
     width: 50vw;
     padding: 2em;
@@ -46,20 +46,6 @@ body {
 }
 
 input,
-select,
-textarea {
-     padding: 0.6em 1.2em;
-    border: 2px solid black;
-    border-radius: 3px;
-    background-color: transparent;
-    font-size: 16px;
-    color: #9cc934;
-    width: 100%;
-    box-sizing: border-box;
- 
-}
-
-input,
 select {
   font-size: 17px !important;
   padding: 0.8em 1.5em;
@@ -69,6 +55,12 @@ select {
     color: #9cc934;
     width: 100%;
     box-sizing: border-box;
+}
+
+input::placeholder {
+    color: #999;
+    font-family: monospace;
+    font-weight: 900;
 }
 
 span {
@@ -88,7 +80,6 @@ span {
     padding: 1em 3em;
     margin-top: 2em;
     color: white;
-    
     font-family: monospace;
     font-weight: 900; 
     
@@ -100,6 +91,71 @@ span {
     font-weight: 900;
 }
 
+.body-checkHtml {
+    background-color: #141414;
+    margin-top: 18em;
+    text-align: center;
+}
+
+.items-card {
+    display: block;
+    background-color: #1d2124;
+    padding: 4em;
+    height: 34vh;
+    border: 3px solid white ;
+    border-radius: 10px;
+    width: 50vw;
+}
+
+.h2-card {
+    color: #c7c7c7;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 900;
+}
+
+.h2-card-envio {
+    color: #0d7950;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, monospace;
+    font-weight: 900;
+}
+
+.ancora-card {
+    text-decoration: none;
+    color: #c1c6ca;
+    font-family: serif;
+    font-weight: 600;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 4px;
+    padding: 1em;
+    background-color:#163541;
+}
+
+.icon {
+    width: 70px;
+}
+
+.toast {
+  visibility: hidden;
+  min-width: 200px;
+  background-color: #2e2d2d;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 12px;
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1rem;
+  transition: all 0.5s ease;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+
 @media screen and (max-width: 768px) {
     body {
         width: 100%;
@@ -108,7 +164,6 @@ span {
     }
 
     .container {
-       
         width: 80%;
         padding: 1.5em;
     }
